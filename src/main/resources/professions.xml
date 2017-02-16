@@ -1,0 +1,26 @@
+<?xml version = "1.0" encoding="UTF-8" standalone="yes" ?>
+<professions>
+    <profession>
+        <name>Voleur</name>
+        <aptitude>
+            <label>furtivité</label>
+            <race>0</race>
+            <cpKey>0</cpKey>
+            <genre>30</genre>
+            <exp>0</exp>
+            <c>0</c>
+            <total>0</total>
+            <comment/>
+        </aptitude>
+        <aptitude>
+            <label>crochetage</label>
+            <race>0</race>
+            <cpKey>0</cpKey>
+            <genre>40</genre>
+            <exp>0</exp>
+            <c>0</c>
+            <total>0</total>
+            <comment/>
+        </aptitude>
+    </profession>
+</professions>

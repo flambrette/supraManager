@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Professions;
 import model.Races;
 
 import javax.xml.bind.JAXBContext;
@@ -45,6 +46,7 @@ public class EditCharacterDialogController {
     @FXML
     private void initialize() throws URISyntaxException {
         raceComboBox.getItems().addAll(loadRacesDataFromFile());
+        careerComboBox.getItems().addAll(loadProfessionsDataFromFile());
     }
 
     public void setDialogStage(final Stage dialogStage) {
@@ -108,15 +110,10 @@ public class EditCharacterDialogController {
      */
     private List<String> loadRacesDataFromFile() throws URISyntaxException {
 
-        final File file = new File(getClass().getResource( "/races.xml" ).getFile());
+        final File racesFile = new File(getClass().getResource( "/races.xml" ).getFile());
 
-        if(!file.exists()){
-            final Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText("Could not load race");
-            alert.setContentText("Could not load races from file:\n" + file.getPath());
-            alert.showAndWait();
-            return Collections.emptyList();
+        if(!racesFile.exists()){
+            manageUnexistingFile("races",racesFile);
         }
 
         try {
@@ -124,17 +121,52 @@ public class EditCharacterDialogController {
                     .newInstance(Races.class);
             final Unmarshaller um = context.createUnmarshaller();
             @SuppressWarnings("unchecked")
-            final Races races  = (Races) um.unmarshal(file);
+            final Races races  = (Races) um.unmarshal(racesFile);
             return races.getRaceNames();
 
         } catch (Exception e) {
             final Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setHeaderText("Could not load race");
+            alert.setHeaderText("Could not load races");
             alert.setContentText(e.toString());
             alert.showAndWait();
             throw new RuntimeException(e);
         }
+    }
+
+    private List<String> loadProfessionsDataFromFile() throws URISyntaxException {
+
+        final File professionsFile = new File(getClass().getResource( "/professions.xml" ).getFile());
+
+        if(!professionsFile.exists()){
+            manageUnexistingFile("professions",professionsFile);
+        }
+
+        try {
+            final JAXBContext context = JAXBContext
+                    .newInstance(Professions.class);
+            final Unmarshaller um = context.createUnmarshaller();
+            @SuppressWarnings("unchecked")
+            final Professions professions  = (Professions) um.unmarshal(professionsFile);
+            return professions.getProfessionNames();
+
+        } catch (Exception e) {
+            final Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Could not load professions");
+            alert.setContentText(e.toString());
+            alert.showAndWait();
+            throw new RuntimeException(e);
+        }
+    }
+
+    private  List<String> manageUnexistingFile(final String name,final File file) {
+        final Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText("Could not load " +name);
+        alert.setContentText("Could not load "+name+" from file:\n" + file.getPath());
+        alert.showAndWait();
+        return Collections.emptyList();
     }
 
     public boolean isOkClicked() {

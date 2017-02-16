@@ -7,24 +7,26 @@ import javafx.beans.property.SimpleStringProperty;
  * Created by Florent L. on 01-02-17.
  */
 public class Aptitude {
-    private final SimpleStringProperty label;
-    private final SimpleIntegerProperty race;
-    private final SimpleIntegerProperty cpKey;
-    private final SimpleIntegerProperty genre;
-    private final SimpleIntegerProperty exp;
-    private final SimpleIntegerProperty c;
-    private final SimpleIntegerProperty total;
-    private final SimpleStringProperty comment;
+    private final SimpleStringProperty label= new SimpleStringProperty();
+    private final SimpleIntegerProperty race = new SimpleIntegerProperty();
+    private final SimpleIntegerProperty cpKey = new SimpleIntegerProperty();
+    private final SimpleIntegerProperty genre = new SimpleIntegerProperty();
+    private final SimpleIntegerProperty exp = new SimpleIntegerProperty();
+    private final SimpleIntegerProperty c = new SimpleIntegerProperty();
+    private final SimpleIntegerProperty total = new SimpleIntegerProperty();
+    private final SimpleStringProperty comment = new SimpleStringProperty();
 
-    public Aptitude(final SimpleStringProperty labelParam){
-        label = labelParam;
-        race = new SimpleIntegerProperty(0);
-        cpKey= new SimpleIntegerProperty(0);
-        genre= new SimpleIntegerProperty(0);
-        exp= new SimpleIntegerProperty(0);
-        c= new SimpleIntegerProperty(0);
-        total= new SimpleIntegerProperty(0);
-        comment = new SimpleStringProperty();
+    public Aptitude(){}
+
+    public Aptitude(final String labelParam){
+        label.set(labelParam);
+        race.set(0);
+        cpKey.set(0);
+        genre.set(0);
+        exp.set(0);
+        c.set(0);
+        total.set(0);
+        comment.set("");
     }
 
     public String getLabel() {

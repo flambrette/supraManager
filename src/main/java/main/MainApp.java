@@ -30,7 +30,7 @@ public class MainApp extends Application {
     public void start(Stage pStage) throws Exception{
         this.primaryStage = pStage;
 
-        FXMLLoader loader = new FXMLLoader();
+        final FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/main.fxml"));
         Parent root = loader.load();
 
@@ -43,7 +43,7 @@ public class MainApp extends Application {
 
     private void createCharacteristicController(final FXMLLoader loader) {
         // Give the controller access to the main app.
-        MainController controller = loader.getController();
+        final MainController controller = loader.getController();
         controller.setMainApp(this);
     }
 
@@ -62,13 +62,11 @@ public class MainApp extends Application {
 
     public boolean showCharacterEditDialog(final Character character) {
         try {
-            // Load the fxml file and create a new stage for the popup dialog.
-            FXMLLoader loader = new FXMLLoader();
+            final FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/view/editCharacterDialog.fxml"));
             final AnchorPane page = loader.load();
 
-            // Create the dialog Stage.
-            Stage dialogStage = new Stage();
+            final Stage dialogStage = new Stage();
             dialogStage.setTitle("New character");
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
