@@ -12,24 +12,24 @@ import javax.xml.bind.annotation.XmlElement;
  * Created by Florent L. on 01-02-17.
  */
 public class Characteristic {
-    private SimpleStringProperty label = new SimpleStringProperty();
-    private SimpleIntegerProperty base = new SimpleIntegerProperty();
-    private SimpleIntegerProperty bonus = new SimpleIntegerProperty();
-    private SimpleIntegerProperty total = new SimpleIntegerProperty();
-    private SimpleIntegerProperty modifier = new SimpleIntegerProperty();
-    private SimpleStringProperty comment = new SimpleStringProperty();
+    private final SimpleStringProperty label = new SimpleStringProperty();
+    private final SimpleIntegerProperty base = new SimpleIntegerProperty();
+    private final SimpleIntegerProperty bonus = new SimpleIntegerProperty();
+    private final SimpleIntegerProperty total = new SimpleIntegerProperty();
+    private final SimpleIntegerProperty modifier = new SimpleIntegerProperty();
+    private final SimpleStringProperty comment = new SimpleStringProperty();
 
     public Characteristic() {
 
     }
 
     private Characteristic(final int idParam, final String labelParam){
-        label = new SimpleStringProperty(labelParam);
-        base = new SimpleIntegerProperty(0);
-        bonus = new SimpleIntegerProperty(0);
-        total = new SimpleIntegerProperty(0);
-        modifier = new SimpleIntegerProperty(0);
-        comment = new SimpleStringProperty("");
+        label.set(labelParam);
+        base.set(0);
+        bonus.set(0);
+        total.set(0);
+        modifier.set(0);
+        comment.set("");
 
         total.bind(sum());
         total.addListener((observable, oldValue, newValue) -> this.setModifier(generateModifier(newValue.intValue())));
