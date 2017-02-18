@@ -31,6 +31,10 @@ public class Characteristic {
         modifier.set(0);
         comment.set("");
 
+        bindTotal();
+    }
+
+    public void bindTotal() {
         total.bind(sum());
         total.addListener((observable, oldValue, newValue) -> this.setModifier(generateModifier(newValue.intValue())));
     }
@@ -140,7 +144,7 @@ public class Characteristic {
         return modifier;
     }
 
-    public void setModifier(int modifier) {
+    private void setModifier(int modifier) {
         this.modifier.set(modifier);
     }
 

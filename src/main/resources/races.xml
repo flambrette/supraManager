@@ -1,8 +1,7 @@
 <?xml version = "1.0" encoding="UTF-8" standalone="yes" ?>
 <races>
     <race>
-        <label>Humain</label>
-        <characteristics>
+        <name>Humain</name>
             <characteristic>
                 <label>Courage</label>
                 <base>8</base>
@@ -75,11 +74,9 @@
                 <modifier>0</modifier>
                 <comment/>
             </characteristic>
-        </characteristics>
     </race>
     <race>
-        <label>Haut humain</label>
-        <characteristics>
+        <name>Haut humain</name>
             <characteristic>
                 <label>Courage</label>
                 <base>8</base>
@@ -152,11 +149,9 @@
                 <modifier>0</modifier>
                 <comment/>
             </characteristic>
-        </characteristics>
     </race>
     <race>
-        <label>Elfe</label>
-        <characteristics>
+        <name>Elfe</name>
             <characteristic>
                 <label>Courage</label>
                 <base>7</base>
@@ -229,11 +224,9 @@
                 <modifier>0</modifier>
                 <comment/>
             </characteristic>
-        </characteristics>
     </race>
     <race>
-        <label>Haut elfe</label>
-        <characteristics>
+        <name>Haut elfe</name>
             <characteristic>
                 <label>Courage</label>
                 <base>7</base>
@@ -306,11 +299,9 @@
                 <modifier>0</modifier>
                 <comment/>
             </characteristic>
-        </characteristics>
     </race>
     <race>
-        <label>Elfe des bois</label>
-        <characteristics>
+        <name>Elfe des bois</name>
             <characteristic>
                 <label>Courage</label>
                 <base>6</base>
@@ -383,11 +374,9 @@
                 <modifier>0</modifier>
                 <comment/>
             </characteristic>
-        </characteristics>
     </race>
     <race>
-        <label>Demi elfe</label>
-        <characteristics>
+        <name>Demi elfe</name>
             <characteristic>
                 <label>Courage</label>
                 <base>8</base>
@@ -460,11 +449,9 @@
                 <modifier>0</modifier>
                 <comment/>
             </characteristic>
-        </characteristics>
     </race>
     <race>
-        <label>Nain</label>
-        <characteristics>
+        <name>Nain</name>
             <characteristic>
                 <label>Courage</label>
                 <base>9</base>
@@ -537,11 +524,9 @@
                 <modifier>0</modifier>
                 <comment/>
             </characteristic>
-        </characteristics>
     </race>
     <race>
-        <label>Haut nain</label>
-        <characteristics>
+        <name>Haut nain</name>
             <characteristic>
                 <label>Courage</label>
                 <base>9</base>
@@ -614,11 +599,9 @@
                 <modifier>0</modifier>
                 <comment/>
             </characteristic>
-        </characteristics>
     </race>
     <race>
-        <label>Demi orc</label>
-        <characteristics>
+        <name>Demi orc</name>
             <characteristic>
                 <label>Courage</label>
                 <base>10</base>
@@ -691,11 +674,9 @@
                 <modifier>0</modifier>
                 <comment/>
             </characteristic>
-        </characteristics>
     </race>
     <race>
-        <label>Gnome</label>
-        <characteristics>
+        <name>Gnome</name>
             <characteristic>
                 <label>Courage</label>
                 <base>9</base>
@@ -768,11 +749,9 @@
                 <modifier>0</modifier>
                 <comment/>
             </characteristic>
-        </characteristics>
     </race>
     <race>
-        <label>Hobbit</label>
-        <characteristics>
+        <name>Hobbit</name>
             <characteristic>
                 <label>Courage</label>
                 <base>7</base>
@@ -845,6 +824,5 @@
                 <modifier>0</modifier>
                 <comment/>
             </characteristic>
-        </characteristics>
     </race>
 </races>

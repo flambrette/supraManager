@@ -20,7 +20,7 @@ public class Races {
     }
 
     public List<String> getRaceNames(){
-        return races.stream().map(Race::getLabel).collect(Collectors.toList());
+        return races.stream().map(Race::getName).collect(Collectors.toList());
     }
 
     public void setRaces(List<Race> races) {

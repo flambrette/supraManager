@@ -1,7 +1,6 @@
 package model;
 
 import javax.xml.bind.annotation.XmlElement;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,32 +8,32 @@ import java.util.List;
  */
 public class Race {
 
-    private String label;
-    private Characteristics characteristics;
+    private String name;
+    private List<Characteristic> characteristics;
 
     public Race() {
     }
 
-    public Race(String label, Characteristics characteristics) {
-        this.label = label;
+    public Race(final String label,final List<Characteristic> characteristics) {
+        this.name = label;
         this.characteristics = characteristics;
     }
 
-    public String getLabel() {
-        return label;
+    public String getName() {
+        return name;
     }
 
     @XmlElement
-    public void setLabel(String label) {
-        this.label = label;
+    public void setName(String label) {
+        this.name = label;
     }
 
-    public Characteristics getCharacteristics() {
+    public List<Characteristic> getCharacteristics() {
         return characteristics;
     }
 
-    @XmlElement(name="characteristics")
-    public void setCharacteristics(Characteristics characteristics) {
+    @XmlElement(name="characteristic")
+    public void setCharacteristics(List<Characteristic> characteristics) {
         this.characteristics = characteristics;
     }
 }

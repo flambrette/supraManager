@@ -80,9 +80,12 @@ public class MainController {
 
     public void setMainApp(final MainApp mainApp) {
         this.mainApp = mainApp;
+        refreshCharacteristicTableView();
+    }
 
+    private void refreshCharacteristicTableView() {
         // Add observable list data to the table
-        characteristicTableView.setItems(mainApp.getCharacteristicList());
+        characteristicTableView.setItems(mainApp.getCharacter().getCharacteristics());
     }
 
     @FXML
@@ -91,13 +94,14 @@ public class MainController {
         boolean okClicked = mainApp.showCharacterEditDialog(character);
         if (okClicked) {
             mainApp.setCharacter(character);
+            refreshCharacteristicTableView();
         }
     }
 
     @FXML
     private void handleImportCharacter() {
-        FileChooser fileChooser = new FileChooser();
-        File selectedFile = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
+        final FileChooser fileChooser = new FileChooser();
+        final File selectedFile = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
 
         if(selectedFile != null){
             loadCharacterDataFromFile(selectedFile);
@@ -112,10 +116,10 @@ public class MainController {
 
     @FXML
     private void handleSaveCharacter(final File file){
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+        final FileChooser fileChooser = new FileChooser();
+        final FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
         fileChooser.getExtensionFilters().add(extFilter);
-        File selectedFile = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
+        final File selectedFile = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
 
         if(selectedFile != null){
             saveCharacterDataToFile(selectedFile);
@@ -136,9 +140,9 @@ public class MainController {
      */
     private void loadCharacterDataFromFile(final File file) {
         try {
-            JAXBContext context = JAXBContext
+            final JAXBContext context = JAXBContext
                     .newInstance(Character.class);
-            Unmarshaller um = context.createUnmarshaller();
+            final Unmarshaller um = context.createUnmarshaller();
             character = (Character) um.unmarshal(file);
 
         } catch (Exception e) {

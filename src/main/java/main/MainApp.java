@@ -20,10 +20,9 @@ public class MainApp extends Application {
 
     private Stage primaryStage;
     private Character character = new Character();
-    private ObservableList<Characteristic> characteristicList = FXCollections.observableArrayList();
 
     public MainApp(){
-        characteristicList = Characteristic.generateDefaultCharacteristicList();
+
     }
 
     @Override
@@ -54,10 +53,6 @@ public class MainApp extends Application {
 
     public Stage getPrimaryStage() {
         return primaryStage;
-    }
-
-    public ObservableList<Characteristic> getCharacteristicList() {
-        return characteristicList;
     }
 
     public boolean showCharacterEditDialog(final Character character) {

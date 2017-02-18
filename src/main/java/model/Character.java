@@ -1,6 +1,7 @@
 package model;
 
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -19,7 +20,7 @@ public class Character {
     private final SimpleStringProperty age;
     private final SimpleStringProperty size;
     private final SimpleStringProperty career;
-    private final List<Characteristic> characteristics;
+    private final ObservableList<Characteristic> characteristics;
     private final List<Aptitude> aptitudes;
 
     public Character() {
@@ -31,17 +32,6 @@ public class Character {
         this.aptitudes = new ArrayList<Aptitude>();
         this.size = new SimpleStringProperty("");
         this.career = new SimpleStringProperty("");
-    }
-
-    public Character(SimpleStringProperty firstName, SimpleStringProperty lastName, SimpleStringProperty race, SimpleStringProperty age, SimpleStringProperty size, SimpleStringProperty career) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.race = race;
-        this.age = age;
-        this.characteristics = Characteristic.generateDefaultCharacteristicList();
-        this.aptitudes = new ArrayList<Aptitude>();
-        this.size = size;
-        this.career = career;
     }
 
     @XmlElement(name = "firstName")
@@ -97,8 +87,14 @@ public class Character {
     }
 
     @XmlElement(name = "characteristics")
-    public List<Characteristic> getCharacteristics() {
+    public ObservableList<Characteristic> getCharacteristics() {
         return characteristics;
+    }
+
+    public void setCharacteristics(final List<Characteristic> list){
+        this.characteristics.remove(0,this.characteristics.size());
+        list.forEach(Characteristic::bindTotal);
+        this.characteristics.addAll(list);
     }
 
     @XmlElement(name = "aptitudes")
@@ -131,4 +127,6 @@ public class Character {
     public void setCareer(String career) {
         this.career.set(career);
     }
+
+
 }

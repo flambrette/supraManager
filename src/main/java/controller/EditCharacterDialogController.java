@@ -6,7 +6,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Profession;
 import model.Professions;
+import model.Race;
 import model.Races;
 
 import javax.xml.bind.JAXBContext;
@@ -15,6 +17,10 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 import model.Character;
 
 /**
@@ -43,6 +49,9 @@ public class EditCharacterDialogController {
     @FXML
     private  Button cancelButton;
 
+    private Map<String, Race> racesMap;
+    private Map<String, Profession> professionsMap;
+
     @FXML
     private void initialize() throws URISyntaxException {
         raceComboBox.getItems().addAll(loadRacesDataFromFile());
@@ -57,12 +66,17 @@ public class EditCharacterDialogController {
     private void handleOk() {
 
         if(isInputValid()) {
+            final Race race = racesMap.get(raceComboBox.getValue());
+            final Profession profession = professionsMap.get(careerComboBox.getValue());
+
             character.setFirstName(firstNameField.getText());
             character.setLastName(lastNameField.getText());
             character.setAge(ageField.getText());
             character.setSize(sizeField.getText());
-            character.setRace(raceComboBox.getValue());
+            character.setRace(race.getName());
             character.setCareer(careerComboBox.getValue());
+
+            character.setCharacteristics(race.getCharacteristics());
             okClicked = true;
         }
         closeDialog();
@@ -122,6 +136,10 @@ public class EditCharacterDialogController {
             final Unmarshaller um = context.createUnmarshaller();
             @SuppressWarnings("unchecked")
             final Races races  = (Races) um.unmarshal(racesFile);
+
+            racesMap = races.getRaces().stream()
+                  .collect(Collectors.toMap(Race::getName, Function.identity()));
+
             return races.getRaceNames();
 
         } catch (Exception e) {
@@ -148,6 +166,10 @@ public class EditCharacterDialogController {
             final Unmarshaller um = context.createUnmarshaller();
             @SuppressWarnings("unchecked")
             final Professions professions  = (Professions) um.unmarshal(professionsFile);
+
+            professionsMap = professions.getProfessions().stream()
+                  .collect(Collectors.toMap(Profession::getName, Function.identity()));
+
             return professions.getProfessionNames();
 
         } catch (Exception e) {
