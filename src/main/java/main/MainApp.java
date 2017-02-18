@@ -3,15 +3,12 @@ package main;
 import controller.EditCharacterDialogController;
 import controller.MainController;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.Characteristic;
 import model.Character;
 
 import java.io.IOException;
@@ -28,7 +25,6 @@ public class MainApp extends Application {
     @Override
     public void start(Stage pStage) throws Exception{
         this.primaryStage = pStage;
-
         final FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/main.fxml"));
         Parent root = loader.load();
