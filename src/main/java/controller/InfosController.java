@@ -2,10 +2,11 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import main.MainApp;
+import model.Character;
 import model.Profession;
 import model.Professions;
 import model.Race;
@@ -21,16 +22,12 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import model.Character;
-
 /**
  * Created by Florent L. on 06-02-17.
  */
-public class EditCharacterDialogController {
+public class InfosController {
 
     private Stage dialogStage;
-    private Character character;
-    private boolean okClicked = false;
 
     @FXML
     private TextField firstNameField;
@@ -44,13 +41,11 @@ public class EditCharacterDialogController {
     private ComboBox<String> raceComboBox;
     @FXML
     private ComboBox<String> careerComboBox;
-    @FXML
-    private Button okButton;
-    @FXML
-    private  Button cancelButton;
 
     private Map<String, Race> racesMap;
     private Map<String, Profession> professionsMap;
+
+    private MainApp mainApp;
 
     @FXML
     private void initialize() throws URISyntaxException {
@@ -60,26 +55,6 @@ public class EditCharacterDialogController {
 
     public void setDialogStage(final Stage dialogStage) {
         this.dialogStage = dialogStage;
-    }
-
-    @FXML
-    private void handleOk() {
-
-        if(isInputValid()) {
-            final Race race = racesMap.get(raceComboBox.getValue());
-            final Profession profession = professionsMap.get(careerComboBox.getValue());
-
-            character.setFirstName(firstNameField.getText());
-            character.setLastName(lastNameField.getText());
-            character.setAge(ageField.getText());
-            character.setSize(sizeField.getText());
-            character.setRace(race.getName());
-            character.setCareer(careerComboBox.getValue());
-
-            character.setCharacteristics(race.getCharacteristics());
-            okClicked = true;
-        }
-        closeDialog();
     }
 
     private boolean isInputValid() {
@@ -127,7 +102,7 @@ public class EditCharacterDialogController {
         final File racesFile = new File(getClass().getResource( "/races.xml" ).getFile());
 
         if(!racesFile.exists()){
-            manageUnexistingFile("races",racesFile);
+            manageNonexistingFile("races",racesFile);
         }
 
         try {
@@ -157,7 +132,7 @@ public class EditCharacterDialogController {
         final File professionsFile = new File(getClass().getResource( "/professions.xml" ).getFile());
 
         if(!professionsFile.exists()){
-            manageUnexistingFile("professions",professionsFile);
+            manageNonexistingFile("professions",professionsFile);
         }
 
         try {
@@ -182,33 +157,25 @@ public class EditCharacterDialogController {
         }
     }
 
-    private  List<String> manageUnexistingFile(final String name,final File file) {
+    private  List<String> manageNonexistingFile(final String name,final File file) {
         final Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
-        alert.setHeaderText("Could not load " +name);
-        alert.setContentText("Could not load "+name+" from file:\n" + file.getPath());
+        alert.setHeaderText("Could not find " +name);
+        alert.setContentText("Could not find "+name+" from file:\n" + file.getPath());
         alert.showAndWait();
         return Collections.emptyList();
     }
 
-    public boolean isOkClicked() {
-        return okClicked;
+    public void refreshFields() {
+        firstNameField.setText(mainApp.getCharacter().getFirstName());
+        lastNameField.setText(mainApp.getCharacter().getLastName());
+        sizeField.setText(mainApp.getCharacter().getSize());
+        ageField.setText(mainApp.getCharacter().getAge());
+        raceComboBox.setValue(mainApp.getCharacter().getRace());
+        careerComboBox.setValue(mainApp.getCharacter().getCareer());
     }
 
-    @FXML
-    private void handleCancel() {
-        closeDialog();
-    }
-
-    private void closeDialog(){
-        dialogStage.close();
-    }
-
-    public Character getCharacter() {
-        return character;
-    }
-
-    public void setCharacter(Character character) {
-        this.character = character;
+    public void setMainApp(final MainApp mainApp) {
+        this.mainApp = mainApp;
     }
 }

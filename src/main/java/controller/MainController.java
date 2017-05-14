@@ -2,14 +2,10 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.stage.FileChooser;
-import javafx.util.StringConverter;
 import main.MainApp;
-import model.Characteristic;
 import model.Character;
+import utils.Utils;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
@@ -18,24 +14,15 @@ import java.io.File;
 
 
 public class MainController {
-    @FXML
-    private TableView<Characteristic> characteristicTableView;
-    @FXML
-    private TableColumn<Characteristic, String> labelColumn;
-    @FXML
-    private TableColumn<Characteristic, Integer> baseColumn;
-    @FXML
-    private TableColumn<Characteristic, Integer> bonusColumn;
-    @FXML
-    private TableColumn<Characteristic, Integer> totalColumn;
-    @FXML
-    private TableColumn<Characteristic, Integer> modifierColumn;
-    @FXML
-    private TableColumn<Characteristic, String> commentColumn;
 
     private MainApp mainApp;
 
-    private Character character;
+    @FXML
+    public AptitudesController aptitudesController;
+    @FXML
+    public CharacteristicsController characteristicsController;
+    @FXML
+    public InfosController infosController;
 
     public MainController(){}
 
@@ -44,58 +31,16 @@ public class MainController {
      */
     @FXML
     private void initialize() {
-        labelColumn.setCellValueFactory(cellData -> cellData.getValue().labelProperty());
-
-        baseColumn.setCellValueFactory(cellData -> cellData.getValue().baseProperty().asObject());
-        baseColumn.setCellFactory(TextFieldTableCell.forTableColumn(generateStringConvert()));
-        baseColumn.setOnEditCommit(
-                t -> {
-                    t.getTableView().getItems().get(
-                        t.getTablePosition().getRow()).setBase(t.getNewValue());
-                    characteristicTableView.refresh();
-                }
-        );
-
-        bonusColumn.setCellValueFactory(cellData -> cellData.getValue().bonusProperty().asObject());
-        bonusColumn.setCellFactory(TextFieldTableCell.forTableColumn(generateStringConvert()));
-        bonusColumn.setOnEditCommit(
-                t -> {
-                    t.getTableView().getItems().get(
-                            t.getTablePosition().getRow()).setBonus(t.getNewValue());
-                    characteristicTableView.refresh();
-                }
-        );
-
-        totalColumn.setCellValueFactory(cellData -> cellData.getValue().totalProperty().asObject());
-
-        modifierColumn.setCellValueFactory(cellData -> cellData.getValue().modifierProperty().asObject());
-
-        commentColumn.setCellValueFactory(cellData -> cellData.getValue().commentProperty());
-        commentColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        commentColumn.setOnEditCommit(
-                t -> t.getTableView().getItems().get(
-                        t.getTablePosition().getRow()).setComment(t.getNewValue())
-        );
     }
 
-    public void setMainApp(final MainApp mainApp) {
-        this.mainApp = mainApp;
-        refreshCharacteristicTableView();
-    }
+    @FXML
+    private void handleNewCharacter() {
 
-    private void refreshCharacteristicTableView() {
-        // Add observable list data to the table
-        characteristicTableView.setItems(mainApp.getCharacter().getCharacteristics());
     }
 
     @FXML
     private void handleEditCharacter() {
-        character = new Character();
-        boolean okClicked = mainApp.showCharacterEditDialog(character);
-        if (okClicked) {
-            mainApp.setCharacter(character);
-            refreshCharacteristicTableView();
-        }
+
     }
 
     @FXML
@@ -104,31 +49,35 @@ public class MainController {
         final File selectedFile = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
 
         if(selectedFile != null){
-            loadCharacterDataFromFile(selectedFile);
-        }else{
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("File Error");
-            alert.setHeaderText("Could not load the selected file...");
-            alert.showAndWait();
+            if(!Utils.isValidString(selectedFile.getPath())){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("File Error");
+                alert.setHeaderText("Could not load the selected file...");
+                alert.showAndWait();
+            } else {
+                loadCharacterDataFromFile(selectedFile);
+            }
         }
     }
 
     @FXML
-    private void handleSaveCharacter(final File file){
+    private void handleSaveCharacter(){
         final FileChooser fileChooser = new FileChooser();
         final FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
         fileChooser.getExtensionFilters().add(extFilter);
-        final File selectedFile = fileChooser.showOpenDialog(mainApp.getPrimaryStage());
+        final File selectedFile = fileChooser.showSaveDialog(mainApp.getPrimaryStage());
 
-        if(selectedFile != null){
-            saveCharacterDataToFile(selectedFile);
-        }else{
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initOwner(mainApp.getPrimaryStage());
-            alert.setTitle("File Error");
-            alert.setHeaderText("Could not find the file");
-            alert.showAndWait();
+        if(selectedFile != null) {
+            if (!Utils.isValidString(selectedFile.getPath())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainApp.getPrimaryStage());
+                alert.setTitle("File Error");
+                alert.setHeaderText("Could not find the file");
+                alert.showAndWait();
+            } else {
+                saveCharacterDataToFile(selectedFile);
+            }
         }
     }
 
@@ -143,7 +92,19 @@ public class MainController {
             final JAXBContext context = JAXBContext
                     .newInstance(Character.class);
             final Unmarshaller um = context.createUnmarshaller();
-            character = (Character) um.unmarshal(file);
+            final Character characterLoaded = (Character) um.unmarshal(file);
+            if(characterLoaded != null){
+                mainApp.setCharacter(characterLoaded);
+                this.characteristicsController.refreshCharacteristicTableView();
+                this.infosController.refreshFields();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Could not load character");
+                alert.setContentText("Could not load character from file:\n" + file.getPath()+"\nBe sure to select a valid file");
+                alert.showAndWait();
+            }
+
 
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -166,7 +127,7 @@ public class MainController {
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-            marshaller.marshal(character, file);
+            marshaller.marshal(mainApp.getCharacter(), file);
 
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -178,21 +139,10 @@ public class MainController {
         }
     }
 
-    private StringConverter<Integer> generateStringConvert() {
-        return new StringConverter<Integer>() {
-            @Override
-            public String toString(Integer object) {
-                return object.toString();
-            }
-
-            @Override
-            public Integer fromString(String string) {
-                return Integer.valueOf(string);
-            }
-        };
-    }
-
-    public void setMainApplicationApp(MainApp mainApplication) {
-
+    public void setMainApp(final MainApp mainApp) {
+        this.mainApp = mainApp;
+        aptitudesController.setMainApp(mainApp);
+        characteristicsController.setMainApp(mainApp);
+        infosController.setMainApp(mainApp);
     }
 }

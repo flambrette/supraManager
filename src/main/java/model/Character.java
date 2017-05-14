@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Florent L. on 06-02-17.
+ * Created by Florent L
  */
 @XmlRootElement(name = "character")
 public class Character {

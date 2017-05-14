@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
- * Created by Florent L. on 01-02-17.
+ * Created by Florent L.
  */
 public class Characteristic {
     private final SimpleStringProperty label = new SimpleStringProperty();
@@ -147,7 +147,7 @@ public class Characteristic {
     private void setModifier(int modifier) {
         this.modifier.set(modifier);
     }
-
+    @XmlElement
     public String getComment() {
         return comment.get();
     }
