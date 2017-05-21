@@ -18,11 +18,11 @@ public class MainController {
     private MainApp mainApp;
 
     @FXML
-    public AptitudesController aptitudesController;
+    private AptitudesController aptitudesController;
     @FXML
-    public CharacteristicsController characteristicsController;
+    private CharacteristicsController characteristicsController;
     @FXML
-    public InfosController infosController;
+    private InfosController infosController;
 
     public MainController(){}
 

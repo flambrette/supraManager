@@ -147,7 +147,7 @@ public class Characteristic {
     private void setModifier(int modifier) {
         this.modifier.set(modifier);
     }
-    @XmlElement
+
     public String getComment() {
         return comment.get();
     }

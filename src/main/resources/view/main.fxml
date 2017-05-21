@@ -19,36 +19,26 @@
             <MenuItem fx:id="menu_import" mnemonicParsing="false" onAction="#handleImportCharacter" text="import"/>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
-            <items>
-                <MenuItem mnemonicParsing="false" text="About"/>
-            </items>
+            <MenuItem mnemonicParsing="false" text="About"/>
         </Menu>
     </MenuBar>
     <TabPane layoutY="25.0" prefHeight="900.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE"
              AnchorPane.bottomAnchor="-25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
              AnchorPane.topAnchor="25.0">
-      <tabs>
-          <Tab text="infos">
-              <content>
-                  <AnchorPane prefHeight="200.0" prefWidth="800.0">
-                      <fx:include fx:id="infos" source="infos.fxml"/>
-                  </AnchorPane>
-              </content>
-          </Tab>
-          <Tab text="characteristics">
-              <content>
-                  <AnchorPane prefHeight="200.0" prefWidth="800.0">
-                      <fx:include fx:id="characteristics" source="characteristics.fxml"/>
-                  </AnchorPane>
-              </content>
-          </Tab>
-          <Tab text="aptitudes">
-              <content>
-                  <AnchorPane prefHeight="200.0" prefWidth="800.0">
-                      <fx:include fx:id="aptitudes" source="aptitudes.fxml"/>
-                  </AnchorPane>
-              </content>
-          </Tab>
-      </tabs>
+        <Tab text="characteristics">
+            <AnchorPane prefHeight="200.0" prefWidth="800.0">
+                <fx:include fx:id="characteristics" source="characteristics.fxml"/>
+            </AnchorPane>
+        </Tab>
+        <Tab text="infos">
+            <AnchorPane prefHeight="200.0" prefWidth="800.0">
+                <fx:include fx:id="infos" source="infos.fxml"/>
+            </AnchorPane>
+        </Tab>
+        <Tab text="aptitudes">
+            <AnchorPane prefHeight="200.0" prefWidth="800.0">
+                <fx:include fx:id="aptitudes" source="aptitudes.fxml"/>
+            </AnchorPane>
+        </Tab>
     </TabPane>
 </AnchorPane>

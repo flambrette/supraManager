@@ -29,7 +29,7 @@ public class Character {
         this.race = new SimpleStringProperty("");
         this.age = new SimpleStringProperty("");
         this.characteristics = Characteristic.generateDefaultCharacteristicList();
-        this.aptitudes = new ArrayList<Aptitude>();
+        this.aptitudes = new ArrayList<>();
         this.size = new SimpleStringProperty("");
         this.career = new SimpleStringProperty("");
     }

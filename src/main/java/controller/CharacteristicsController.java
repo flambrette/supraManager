@@ -80,7 +80,7 @@ public class CharacteristicsController {
 
     public void refreshCharacteristicTableView() {
         // Add observable list data to the table
-        characteristicTableView.getItems().setAll(mainApp.getCharacter().getCharacteristics());
+        characteristicTableView.setItems(mainApp.getCharacter().getCharacteristics());
     }
 
     private StringConverter<Integer> generateStringConvert() {

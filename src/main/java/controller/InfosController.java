@@ -6,7 +6,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import main.MainApp;
-import model.Character;
 import model.Profession;
 import model.Professions;
 import model.Race;
@@ -23,7 +22,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * Created by Florent L. on 06-02-17.
+ * Created by Florent
  */
 public class InfosController {
 
@@ -102,7 +101,7 @@ public class InfosController {
         final File racesFile = new File(getClass().getResource( "/races.xml" ).getFile());
 
         if(!racesFile.exists()){
-            manageNonexistingFile("races",racesFile);
+            manageNonExistingFile("races",racesFile);
         }
 
         try {
@@ -132,7 +131,7 @@ public class InfosController {
         final File professionsFile = new File(getClass().getResource( "/professions.xml" ).getFile());
 
         if(!professionsFile.exists()){
-            manageNonexistingFile("professions",professionsFile);
+            manageNonExistingFile("professions",professionsFile);
         }
 
         try {
@@ -157,13 +156,12 @@ public class InfosController {
         }
     }
 
-    private  List<String> manageNonexistingFile(final String name,final File file) {
+    private  void manageNonExistingFile(final String name, final File file) {
         final Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText("Could not find " +name);
         alert.setContentText("Could not find "+name+" from file:\n" + file.getPath());
         alert.showAndWait();
-        return Collections.emptyList();
     }
 
     public void refreshFields() {
