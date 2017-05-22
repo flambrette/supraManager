@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Character;
 
@@ -23,16 +24,13 @@ public class MainApp extends Application {
         final FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/view/main.fxml"));
         Parent root = loader.load();
-
         createController(loader);
-
         primaryStage.setTitle("Supra character manager");
         primaryStage.setScene(new Scene(root, 800, 900));
         primaryStage.show();
     }
 
     private void createController(final FXMLLoader loader) {
-        // Give the controller access to the main app.
         final MainController controller = loader.getController();
         controller.setMainApp(this);
     }

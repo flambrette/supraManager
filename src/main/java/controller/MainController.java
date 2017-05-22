@@ -2,6 +2,7 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Control;
 import javafx.stage.FileChooser;
 import main.MainApp;
 import model.Character;
@@ -31,6 +32,7 @@ public class MainController {
      */
     @FXML
     private void initialize() {
+
     }
 
     @FXML
@@ -141,8 +143,12 @@ public class MainController {
 
     public void setMainApp(final MainApp mainApp) {
         this.mainApp = mainApp;
-        aptitudesController.setMainApp(mainApp);
-        characteristicsController.setMainApp(mainApp);
-        infosController.setMainApp(mainApp);
+        aptitudesController.setMainController(this);
+        characteristicsController.setMainController(this);
+        infosController.setMainController(this);
+    }
+
+    public MainApp getMainApp() {
+        return mainApp;
     }
 }

@@ -14,7 +14,6 @@
              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <Menu mnemonicParsing="false" text="File">
             <MenuItem fx:id="menu_new" mnemonicParsing="false" onAction="#handleNewCharacter" text="new"/>
-            <MenuItem fx:id="menu_edit" mnemonicParsing="false" onAction="#handleEditCharacter" text="edit"/>
             <MenuItem fx:id="menu_save" mnemonicParsing="false" onAction="#handleSaveCharacter" text="save"/>
             <MenuItem fx:id="menu_import" mnemonicParsing="false" onAction="#handleImportCharacter" text="import"/>
         </Menu>

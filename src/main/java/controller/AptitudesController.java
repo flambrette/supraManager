@@ -8,7 +8,7 @@ import main.MainApp;
  */
 public class AptitudesController {
 
-    private MainApp mainApp;
+    private MainController mainController;
 
 
     @FXML
@@ -16,7 +16,7 @@ public class AptitudesController {
 
     }
 
-    public void setMainApp(final MainApp mainApp) {
-        this.mainApp = mainApp;
+    public void setMainController(final MainController mainController) {
+        this.mainController = mainController;
     }
 }

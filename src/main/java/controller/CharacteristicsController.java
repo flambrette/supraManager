@@ -5,7 +5,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.StringConverter;
-import main.MainApp;
 import model.Characteristic;
 
 /**
@@ -27,7 +26,7 @@ public class CharacteristicsController {
     @FXML
     private TableColumn<Characteristic, String> commentColumn;
 
-    private MainApp mainApp;
+    private MainController mainController;
 
     /**
      * Automatically called after the fxml file has been loaded.
@@ -73,14 +72,14 @@ public class CharacteristicsController {
         );
     }
 
-    public void setMainApp(final MainApp mainApp) {
-        this.mainApp = mainApp;
+    public void setMainController(final MainController mainController) {
+        this.mainController = mainController;
         refreshCharacteristicTableView();
     }
 
     public void refreshCharacteristicTableView() {
         // Add observable list data to the table
-        characteristicTableView.setItems(mainApp.getCharacter().getCharacteristics());
+        characteristicTableView.setItems(mainController.getMainApp().getCharacter().getCharacteristics());
     }
 
     private StringConverter<Integer> generateStringConvert() {

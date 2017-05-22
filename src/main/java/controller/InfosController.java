@@ -1,5 +1,7 @@
 package controller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
@@ -26,6 +28,7 @@ import java.util.stream.Collectors;
  */
 public class InfosController {
 
+    private MainController mainController;
     private Stage dialogStage;
 
     @FXML
@@ -44,11 +47,13 @@ public class InfosController {
     private Map<String, Race> racesMap;
     private Map<String, Profession> professionsMap;
 
-    private MainApp mainApp;
-
     @FXML
     private void initialize() throws URISyntaxException {
         raceComboBox.getItems().addAll(loadRacesDataFromFile());
+
+        careerComboBox.valueProperty().addListener((ov, t, t1) -> {
+            mainController.getMainApp().getCharacter().setCareer(t1);
+        });
         careerComboBox.getItems().addAll(loadProfessionsDataFromFile());
     }
 
@@ -165,15 +170,15 @@ public class InfosController {
     }
 
     public void refreshFields() {
-        firstNameField.setText(mainApp.getCharacter().getFirstName());
-        lastNameField.setText(mainApp.getCharacter().getLastName());
-        sizeField.setText(mainApp.getCharacter().getSize());
-        ageField.setText(mainApp.getCharacter().getAge());
-        raceComboBox.setValue(mainApp.getCharacter().getRace());
-        careerComboBox.setValue(mainApp.getCharacter().getCareer());
+        firstNameField.setText(mainController.getMainApp().getCharacter().getFirstName());
+        lastNameField.setText(mainController.getMainApp().getCharacter().getLastName());
+        sizeField.setText(mainController.getMainApp().getCharacter().getSize());
+        ageField.setText(mainController.getMainApp().getCharacter().getAge());
+        raceComboBox.setValue(mainController.getMainApp().getCharacter().getRace());
+        careerComboBox.setValue(mainController.getMainApp().getCharacter().getCareer());
     }
 
-    public void setMainApp(final MainApp mainApp) {
-        this.mainApp = mainApp;
+    public void setMainController(final MainController mainController) {
+        this.mainController = mainController;
     }
 }
