@@ -6,17 +6,24 @@ import javafx.scene.control.Control;
 import javafx.stage.FileChooser;
 import main.MainApp;
 import model.Character;
+import model.Profession;
+import model.Race;
 import utils.Utils;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.util.Map;
 
 
 public class MainController {
 
     private MainApp mainApp;
+
+    private Character character = new Character();
+    private Map<String, Race> racesMap;
+    private Map<String, Profession> professionsMap;
 
     @FXML
     private AptitudesController aptitudesController;
@@ -32,16 +39,13 @@ public class MainController {
      */
     @FXML
     private void initialize() {
-
+        aptitudesController.setMainController(this);
+        characteristicsController.setMainController(this);
+        infosController.setMainController(this);
     }
 
     @FXML
     private void handleNewCharacter() {
-
-    }
-
-    @FXML
-    private void handleEditCharacter() {
 
     }
 
@@ -65,20 +69,22 @@ public class MainController {
 
     @FXML
     private void handleSaveCharacter(){
-        final FileChooser fileChooser = new FileChooser();
-        final FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
-        fileChooser.getExtensionFilters().add(extFilter);
-        final File selectedFile = fileChooser.showSaveDialog(mainApp.getPrimaryStage());
+        if(infosController.isInputValid()){
+            final FileChooser fileChooser = new FileChooser();
+            final FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+            fileChooser.getExtensionFilters().add(extFilter);
+            final File selectedFile = fileChooser.showSaveDialog(mainApp.getPrimaryStage());
 
-        if(selectedFile != null) {
-            if (!Utils.isValidString(selectedFile.getPath())) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initOwner(mainApp.getPrimaryStage());
-                alert.setTitle("File Error");
-                alert.setHeaderText("Could not find the file");
-                alert.showAndWait();
-            } else {
-                saveCharacterDataToFile(selectedFile);
+            if(selectedFile != null) {
+                if (!Utils.isValidString(selectedFile.getPath())) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.initOwner(mainApp.getPrimaryStage());
+                    alert.setTitle("File Error");
+                    alert.setHeaderText("Could not find the file");
+                    alert.showAndWait();
+                } else {
+                    saveCharacterDataToFile(selectedFile);
+                }
             }
         }
     }
@@ -96,7 +102,7 @@ public class MainController {
             final Unmarshaller um = context.createUnmarshaller();
             final Character characterLoaded = (Character) um.unmarshal(file);
             if(characterLoaded != null){
-                mainApp.setCharacter(characterLoaded);
+                this.setCharacter(characterLoaded);
                 this.characteristicsController.refreshCharacteristicTableView();
                 this.infosController.refreshFields();
             } else {
@@ -106,7 +112,6 @@ public class MainController {
                 alert.setContentText("Could not load character from file:\n" + file.getPath()+"\nBe sure to select a valid file");
                 alert.showAndWait();
             }
-
 
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -129,7 +134,7 @@ public class MainController {
             Marshaller marshaller = context.createMarshaller();
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
-            marshaller.marshal(mainApp.getCharacter(), file);
+            marshaller.marshal(getCharacter(), file);
 
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -143,12 +148,40 @@ public class MainController {
 
     public void setMainApp(final MainApp mainApp) {
         this.mainApp = mainApp;
-        aptitudesController.setMainController(this);
-        characteristicsController.setMainController(this);
-        infosController.setMainController(this);
+    }
+
+    public Character getCharacter() {
+        return character;
+    }
+
+    public void setCharacter(final Character character) {
+        this.character = character;
+    }
+
+    public Map<String, Race> getRacesMap() {
+        return racesMap;
+    }
+
+    public void setRacesMap(final Map<String, Race> racesMap) {
+        this.racesMap = racesMap;
+    }
+
+    public Map<String, Profession> getProfessionsMap() {
+        return professionsMap;
+    }
+
+    public void setProfessionsMap(final Map<String, Profession> professionsMap) {
+        this.professionsMap = professionsMap;
     }
 
     public MainApp getMainApp() {
         return mainApp;
+    }
+
+    public void updateCharacteristicsFromRace(final String raceName) {
+        final Race race = racesMap.get(raceName);
+        character.setRace(race.getName());
+        character.setCharacteristics(race.getCharacteristics());
+        characteristicsController.refreshCharacteristicTableView();
     }
 }

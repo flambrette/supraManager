@@ -12,7 +12,7 @@ import model.Character;
 public class MainApp extends Application {
 
     private Stage primaryStage;
-    private Character character = new Character();
+
 
     public MainApp(){
 
@@ -41,13 +41,5 @@ public class MainApp extends Application {
 
     public Stage getPrimaryStage() {
         return primaryStage;
-    }
-
-    public Character getCharacter() {
-        return character;
-    }
-
-    public void setCharacter(Character character) {
-        this.character = character;
     }
 }

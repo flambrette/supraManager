@@ -1,13 +1,10 @@
 package controller;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import main.MainApp;
 import model.Profession;
 import model.Professions;
 import model.Race;
@@ -17,9 +14,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.net.URISyntaxException;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -44,24 +39,18 @@ public class InfosController {
     @FXML
     private ComboBox<String> careerComboBox;
 
-    private Map<String, Race> racesMap;
-    private Map<String, Profession> professionsMap;
+
 
     @FXML
     private void initialize() throws URISyntaxException {
-        raceComboBox.getItems().addAll(loadRacesDataFromFile());
 
-        careerComboBox.valueProperty().addListener((ov, t, t1) -> {
-            mainController.getMainApp().getCharacter().setCareer(t1);
-        });
-        careerComboBox.getItems().addAll(loadProfessionsDataFromFile());
     }
 
     public void setDialogStage(final Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
 
-    private boolean isInputValid() {
+    public boolean isInputValid() {
         String errorMessage = "";
 
         if (firstNameField.getText() == null || firstNameField.getText().length() == 0) {
@@ -116,8 +105,8 @@ public class InfosController {
             @SuppressWarnings("unchecked")
             final Races races  = (Races) um.unmarshal(racesFile);
 
-            racesMap = races.getRaces().stream()
-                  .collect(Collectors.toMap(Race::getName, Function.identity()));
+            mainController.setRacesMap(races.getRaces().stream()
+                  .collect(Collectors.toMap(Race::getName, Function.identity())));
 
             return races.getRaceNames();
 
@@ -146,8 +135,8 @@ public class InfosController {
             @SuppressWarnings("unchecked")
             final Professions professions  = (Professions) um.unmarshal(professionsFile);
 
-            professionsMap = professions.getProfessions().stream()
-                  .collect(Collectors.toMap(Profession::getName, Function.identity()));
+            mainController.setProfessionsMap(professions.getProfessions().stream()
+                  .collect(Collectors.toMap(Profession::getName, Function.identity())));
 
             return professions.getProfessionNames();
 
@@ -170,15 +159,29 @@ public class InfosController {
     }
 
     public void refreshFields() {
-        firstNameField.setText(mainController.getMainApp().getCharacter().getFirstName());
-        lastNameField.setText(mainController.getMainApp().getCharacter().getLastName());
-        sizeField.setText(mainController.getMainApp().getCharacter().getSize());
-        ageField.setText(mainController.getMainApp().getCharacter().getAge());
-        raceComboBox.setValue(mainController.getMainApp().getCharacter().getRace());
-        careerComboBox.setValue(mainController.getMainApp().getCharacter().getCareer());
+        firstNameField.setText(mainController.getCharacter().getFirstName());
+        lastNameField.setText(mainController.getCharacter().getLastName());
+        sizeField.setText(mainController.getCharacter().getSize());
+        ageField.setText(mainController.getCharacter().getAge());
+        raceComboBox.setValue(mainController.getCharacter().getRace());
+        careerComboBox.setValue(mainController.getCharacter().getCareer());
     }
 
     public void setMainController(final MainController mainController) {
+
         this.mainController = mainController;
+
+        try {
+            raceComboBox.getItems().addAll(loadRacesDataFromFile());
+            raceComboBox.valueProperty().addListener((ov, t, t1) -> {
+                if(t == null || !t.equals(t1)){
+                    this.mainController.updateCharacteristicsFromRace(t1);
+                }
+            });
+            careerComboBox.getItems().addAll(loadProfessionsDataFromFile());
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

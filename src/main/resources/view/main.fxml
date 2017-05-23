@@ -24,14 +24,14 @@
     <TabPane layoutY="25.0" prefHeight="900.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE"
              AnchorPane.bottomAnchor="-25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
              AnchorPane.topAnchor="25.0">
-        <Tab text="characteristics">
-            <AnchorPane prefHeight="200.0" prefWidth="800.0">
-                <fx:include fx:id="characteristics" source="characteristics.fxml"/>
-            </AnchorPane>
-        </Tab>
         <Tab text="infos">
             <AnchorPane prefHeight="200.0" prefWidth="800.0">
                 <fx:include fx:id="infos" source="infos.fxml"/>
+            </AnchorPane>
+        </Tab>
+        <Tab text="characteristics">
+            <AnchorPane prefHeight="200.0" prefWidth="800.0">
+                <fx:include fx:id="characteristics" source="characteristics.fxml"/>
             </AnchorPane>
         </Tab>
         <Tab text="aptitudes">
