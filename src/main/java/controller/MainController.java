@@ -1,11 +1,13 @@
 package controller;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Control;
 import javafx.stage.FileChooser;
 import main.MainApp;
 import model.Character;
+import model.Characteristic;
 import model.Profession;
 import model.Race;
 import utils.Utils;
@@ -14,6 +16,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 
@@ -103,8 +107,8 @@ public class MainController {
             final Character characterLoaded = (Character) um.unmarshal(file);
             if(characterLoaded != null){
                 this.setCharacter(characterLoaded);
-                this.characteristicsController.refreshCharacteristicTableView();
                 this.infosController.refreshFields();
+                this.characteristicsController.refreshCharacteristicTableView();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
@@ -179,9 +183,22 @@ public class MainController {
     }
 
     public void updateCharacteristicsFromRace(final String raceName) {
+        final List<Characteristic> newCharacteristicList = new ArrayList<>();
         final Race race = racesMap.get(raceName);
         character.setRace(race.getName());
-        character.setCharacteristics(race.getCharacteristics());
+
+        final ObservableList<Characteristic> items = character.getCharacteristics();
+        int i = 0;
+        for (final Characteristic characteristic : items) {
+            final Characteristic characteristicFromRace = race.getCharacteristics().get(i);
+            newCharacteristicList.add(
+                  Characteristic.newBuilder(characteristic)
+                        .base(characteristicFromRace.getBase())
+                        .build()
+            );
+            i++;
+        }
+        character.setCharacteristics(newCharacteristicList);
         characteristicsController.refreshCharacteristicTableView();
     }
 }

@@ -82,6 +82,10 @@ public class CharacteristicsController {
         characteristicTableView.setItems(mainController.getCharacter().getCharacteristics());
     }
 
+    public TableView<Characteristic> getCharacteristicTableView() {
+        return characteristicTableView;
+    }
+
     private StringConverter<Integer> generateStringConvert() {
         return new StringConverter<Integer>() {
             @Override

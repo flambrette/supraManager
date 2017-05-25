@@ -159,4 +159,64 @@ public class Characteristic {
     public void setComment(String comment) {
         this.comment.set(comment);
     }
+
+    public static CharacteristicBuilder newBuilder() {
+        return new CharacteristicBuilder();
+    }
+
+    public static CharacteristicBuilder newBuilder(final Characteristic characteristic) {
+        return new CharacteristicBuilder()
+              .base(characteristic.getBase())
+              .bonus(characteristic.getBonus())
+              .total(characteristic.getTotal())
+              .label(characteristic.getLabel())
+              .comment(characteristic.getComment());
+    }
+
+    public static final class CharacteristicBuilder {
+        private SimpleStringProperty label = new SimpleStringProperty();
+        private SimpleIntegerProperty base = new SimpleIntegerProperty();
+        private SimpleIntegerProperty bonus = new SimpleIntegerProperty();
+        private SimpleIntegerProperty total = new SimpleIntegerProperty();
+        private SimpleStringProperty comment = new SimpleStringProperty();
+
+        private CharacteristicBuilder() {
+        }
+
+        public CharacteristicBuilder label(final String label) {
+            this.label = new SimpleStringProperty(label);
+            return this;
+        }
+
+        public CharacteristicBuilder base(final int base) {
+            this.base = new SimpleIntegerProperty(base);
+            return this;
+        }
+
+        public CharacteristicBuilder bonus(final int bonus) {
+            this.bonus = new SimpleIntegerProperty(bonus);
+            return this;
+        }
+
+        public CharacteristicBuilder total(final int total) {
+            this.total = new SimpleIntegerProperty(total);
+            return this;
+        }
+
+        public CharacteristicBuilder comment(final String comment) {
+            this.comment = new SimpleStringProperty(comment);
+            return this;
+        }
+
+        public Characteristic build() {
+            Characteristic characteristic = new Characteristic();
+            characteristic.setLabel(label.get());
+            characteristic.setBase(base.get());
+            characteristic.setBonus(bonus.get());
+            characteristic.setTotal(total.get());
+            characteristic.setComment(comment.get());
+            characteristic.setModifier(characteristic.generateModifier(total.get()));
+            return characteristic;
+        }
+    }
 }

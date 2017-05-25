@@ -39,8 +39,6 @@ public class InfosController {
     @FXML
     private ComboBox<String> careerComboBox;
 
-
-
     @FXML
     private void initialize() throws URISyntaxException {
 
@@ -163,8 +161,8 @@ public class InfosController {
         lastNameField.setText(mainController.getCharacter().getLastName());
         sizeField.setText(mainController.getCharacter().getSize());
         ageField.setText(mainController.getCharacter().getAge());
-        raceComboBox.setValue(mainController.getCharacter().getRace());
         careerComboBox.setValue(mainController.getCharacter().getCareer());
+        raceComboBox.setValue(mainController.getCharacter().getRace());
     }
 
     public void setMainController(final MainController mainController) {
@@ -173,11 +171,7 @@ public class InfosController {
 
         try {
             raceComboBox.getItems().addAll(loadRacesDataFromFile());
-            raceComboBox.valueProperty().addListener((ov, t, t1) -> {
-                if(t == null || !t.equals(t1)){
-                    this.mainController.updateCharacteristicsFromRace(t1);
-                }
-            });
+            raceComboBox.valueProperty().addListener((ov, t, t1) -> this.mainController.updateCharacteristicsFromRace(t1));
             careerComboBox.getItems().addAll(loadProfessionsDataFromFile());
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
