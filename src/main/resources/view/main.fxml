@@ -7,36 +7,31 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controller.MainController">
-    <MenuBar prefHeight="900.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-             AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+    <MenuBar prefHeight="900.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <Menu mnemonicParsing="false" text="File">
-            <MenuItem fx:id="menu_new" mnemonicParsing="false" onAction="#handleNewCharacter" text="new"/>
-            <MenuItem fx:id="menu_save" mnemonicParsing="false" onAction="#handleSaveCharacter" text="save"/>
-            <MenuItem fx:id="menu_import" mnemonicParsing="false" onAction="#handleImportCharacter" text="import"/>
+            <MenuItem fx:id="menu_new" mnemonicParsing="false" onAction="#handleNewCharacter" text="new" />
+            <MenuItem fx:id="menu_save" mnemonicParsing="false" onAction="#handleSaveCharacter" text="save" />
+            <MenuItem fx:id="menu_import" mnemonicParsing="false" onAction="#handleImportCharacter" text="import" />
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
-            <MenuItem mnemonicParsing="false" text="About"/>
+            <MenuItem mnemonicParsing="false" text="About" />
         </Menu>
     </MenuBar>
-    <TabPane layoutY="25.0" prefHeight="900.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE"
-             AnchorPane.bottomAnchor="-25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-             AnchorPane.topAnchor="25.0">
-        <Tab text="infos">
-            <AnchorPane prefHeight="200.0" prefWidth="800.0">
-                <fx:include fx:id="infos" source="infos.fxml"/>
+    <TabPane layoutY="25.0" prefHeight="900.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="-25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+        <Tab  text="infos">
+            <AnchorPane styleClass="background1" prefHeight="200.0" prefWidth="800.0">
+                <fx:include fx:id="infos" source="infos.fxml" />
             </AnchorPane>
         </Tab>
-        <Tab text="characteristics">
-            <AnchorPane prefHeight="200.0" prefWidth="800.0">
-                <fx:include fx:id="characteristics" source="characteristics.fxml"/>
+        <Tab  text="characteristics">
+            <AnchorPane styleClass="background2" prefHeight="200.0" prefWidth="800.0">
+                <fx:include fx:id="characteristics" source="characteristics.fxml" />
             </AnchorPane>
         </Tab>
-        <Tab text="aptitudes">
-            <AnchorPane prefHeight="200.0" prefWidth="800.0">
-                <fx:include fx:id="aptitudes" source="aptitudes.fxml"/>
+        <Tab  text="aptitudes">
+            <AnchorPane styleClass="background1" prefHeight="200.0" prefWidth="800.0">
+                <fx:include fx:id="aptitudes" source="aptitudes.fxml" />
             </AnchorPane>
         </Tab>
     </TabPane>

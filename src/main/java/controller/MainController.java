@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Control;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import main.MainApp;
 import model.Character;
