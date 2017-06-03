@@ -4,8 +4,8 @@
 <?import javafx.scene.layout.*?>
 
 
-<TableView fx:id="characteristicTableView" editable="true" maxHeight="250.0" maxWidth="1600.0" minHeight="250.0"
-           minWidth="800.0" prefHeight="250.0" prefWidth="800.0" AnchorPane.bottomAnchor="621.0"
+<TableView fx:id="characteristicTableView" editable="true" maxHeight="460.0" maxWidth="1600.0" minHeight="460.0"
+           minWidth="800.0" prefHeight="460.0" prefWidth="800.0" AnchorPane.bottomAnchor="621.0"
            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
            fx:controller="controller.CharacteristicsController"  xmlns:fx="http://javafx.com/fxml/1">
     <columns>

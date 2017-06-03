@@ -25,12 +25,12 @@
             </AnchorPane>
         </Tab>
         <Tab  text="characteristics">
-            <AnchorPane styleClass="background2" prefHeight="200.0" prefWidth="800.0">
+            <AnchorPane styleClass="background1" prefHeight="200.0" prefWidth="800.0">
                 <fx:include fx:id="characteristics" source="characteristics.fxml" />
             </AnchorPane>
         </Tab>
         <Tab  text="aptitudes">
-            <AnchorPane styleClass="background1" prefHeight="200.0" prefWidth="800.0">
+            <AnchorPane styleClass="background2" prefHeight="200.0" prefWidth="800.0">
                 <fx:include fx:id="aptitudes" source="aptitudes.fxml" />
             </AnchorPane>
         </Tab>
