@@ -1,12 +1,12 @@
 .background1{
-    -fx-background-image: url("/images/parchment-a.jpg");
+    -fx-background-image: url("/images/parchment-1.jpg");
     -fx-background-repeat: stretch;
     -fx-background-size: cover;
     -fx-background-position: center center;
 }
 
 .background2{
-    -fx-background-image: url("/images/parchment-1.jpg");
+    -fx-background-image: url("/images/parchment-2.jpg");
     -fx-background-repeat: stretch;
     -fx-background-size: cover;
     -fx-background-position: center center;
