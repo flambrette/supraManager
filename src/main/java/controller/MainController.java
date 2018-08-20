@@ -3,8 +3,6 @@ package controller;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Control;
-import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import main.MainApp;
 import model.Character;
@@ -35,7 +33,7 @@ public class MainController {
     @FXML
     private CharacteristicsController characteristicsController;
     @FXML
-    private InfosController infosController;
+    private InfoController infosController;
 
     public MainController(){}
 
@@ -201,5 +199,9 @@ public class MainController {
         }
         character.setCharacteristics(newCharacteristicList);
         characteristicsController.refreshCharacteristicTableView();
+    }
+
+    public void updateAptitudesFromCharacteristics() {
+
     }
 }

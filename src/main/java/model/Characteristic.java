@@ -18,12 +18,14 @@ public class Characteristic {
     private final SimpleIntegerProperty total = new SimpleIntegerProperty();
     private final SimpleIntegerProperty modifier = new SimpleIntegerProperty();
     private final SimpleStringProperty comment = new SimpleStringProperty();
+    private final SimpleIntegerProperty id = new SimpleIntegerProperty();
 
     public Characteristic() {
 
     }
 
     private Characteristic(final int idParam, final String labelParam){
+        id.set(idParam);
         label.set(labelParam);
         base.set(0);
         bonus.set(0);
@@ -44,9 +46,12 @@ public class Characteristic {
     }
 
     private Integer generateModifier(final Integer total){
+
+        if(total <= 6){
+            return -20;
+        }
+
         switch (total){
-            case 6:
-                return -20;
             case 7:
                 return -15;
             case 8:
@@ -85,6 +90,18 @@ public class Characteristic {
         characteristics.add(new Characteristic(8,"Intelligence"));
         characteristics.add(new Characteristic(9,"Strength"));
         return characteristics;
+    }
+
+    public int getId() {
+        return id.get();
+    }
+
+    public SimpleIntegerProperty idProperty() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id.set(id);
     }
 
     @XmlElement

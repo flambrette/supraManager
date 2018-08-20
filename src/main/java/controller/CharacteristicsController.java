@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import model.Characteristic;
 
@@ -38,6 +39,8 @@ public class CharacteristicsController {
 
     @FXML
     private void initialize() {
+        characteristicTableView.setFixedCellSize(35);
+        characteristicTableView.setMaxHeight((35*9) + 50);
         labelColumn.setCellValueFactory(cellData -> cellData.getValue().labelProperty());
 
         baseColumn.setCellValueFactory(cellData -> cellData.getValue().baseProperty().asObject());

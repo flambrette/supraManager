@@ -68,3 +68,15 @@
     -fx-font-family: 'Great Vibes';
     -fx-font-size: 30;
 }
+
+.table-row-cell:empty {
+    -fx-background-color: transparent;
+}
+
+.table-row-cell:empty .table-cell {
+    -fx-border-width: 0px;
+}
+
+.list-cell:empty {
+    -fx-background-color: transparent;
+}

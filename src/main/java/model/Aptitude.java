@@ -9,22 +9,25 @@ import javafx.beans.property.SimpleStringProperty;
 public class Aptitude {
     private final SimpleStringProperty label= new SimpleStringProperty();
     private final SimpleIntegerProperty race = new SimpleIntegerProperty();
-    private final SimpleIntegerProperty cpKey = new SimpleIntegerProperty();
+    private final SimpleIntegerProperty cp = new SimpleIntegerProperty();
     private final SimpleIntegerProperty genre = new SimpleIntegerProperty();
+    private final SimpleIntegerProperty edit = new SimpleIntegerProperty();
     private final SimpleIntegerProperty exp = new SimpleIntegerProperty();
-    private final SimpleIntegerProperty c = new SimpleIntegerProperty();
+    private final SimpleStringProperty c = new SimpleStringProperty();
     private final SimpleIntegerProperty total = new SimpleIntegerProperty();
     private final SimpleStringProperty comment = new SimpleStringProperty();
 
-    public Aptitude(){}
+    public Aptitude() {
+    }
 
-    public Aptitude(final String labelParam){
+    public Aptitude(final String labelParam, final int idParam){
         label.set(labelParam);
         race.set(0);
-        cpKey.set(0);
+        cp.set(0);
         genre.set(0);
+        edit.set(0);
         exp.set(0);
-        c.set(0);
+        c.set(LearningLevel.N.getValue());
         total.set(0);
         comment.set("");
     }
@@ -53,16 +56,16 @@ public class Aptitude {
         this.race.set(race);
     }
 
-    public int getCpKey() {
-        return cpKey.get();
+    public int getCp() {
+        return cp.get();
     }
 
-    public SimpleIntegerProperty cpKeyProperty() {
-        return cpKey;
+    public SimpleIntegerProperty cpProperty() {
+        return cp;
     }
 
-    public void setCpKey(int cpKey) {
-        this.cpKey.set(cpKey);
+    public void setCp(int cp) {
+        this.cp.set(cp);
     }
 
     public int getGenre() {
@@ -89,15 +92,27 @@ public class Aptitude {
         this.exp.set(exp);
     }
 
-    public int getC() {
+    public int getEdit() {
+        return edit.get();
+    }
+
+    public SimpleIntegerProperty editProperty() {
+        return edit;
+    }
+
+    public void setEdit(int edit) {
+        this.edit.set(edit);
+    }
+
+    public String getC() {
         return c.get();
     }
 
-    public SimpleIntegerProperty cProperty() {
+    public SimpleStringProperty cProperty() {
         return c;
     }
 
-    public void setC(int c) {
+    public void setC(String c) {
         this.c.set(c);
     }
 

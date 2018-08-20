@@ -5,7 +5,7 @@
         <aptitude>
             <label>furtivité</label>
             <race>0</race>
-            <cpKey>0</cpKey>
+            <cp>0</cp>
             <genre>30</genre>
             <exp>0</exp>
             <c>0</c>
@@ -15,7 +15,7 @@
         <aptitude>
             <label>crochetage</label>
             <race>0</race>
-            <cpKey>0</cpKey>
+            <cp>0</cp>
             <genre>40</genre>
             <exp>0</exp>
             <c>0</c>

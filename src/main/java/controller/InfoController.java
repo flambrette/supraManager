@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 /**
  * Created by Florent
  */
-public class InfosController {
+public class InfoController {
 
     private MainController mainController;
     private Stage dialogStage;
@@ -88,7 +88,7 @@ public class InfosController {
     /**
      * Loads data from the specified file.
      */
-    private List<String> loadRacesDataFromFile() throws URISyntaxException {
+    private List<String> loadRacesDataFromFile() {
 
         final File racesFile = new File(getClass().getResource( "/races.xml" ).getFile());
 
@@ -118,7 +118,7 @@ public class InfosController {
         }
     }
 
-    private List<String> loadProfessionsDataFromFile() throws URISyntaxException {
+    private List<String> loadProfessionsDataFromFile() {
 
         final File professionsFile = new File(getClass().getResource( "/professions.xml" ).getFile());
 
@@ -169,13 +169,8 @@ public class InfosController {
 
         this.mainController = mainController;
 
-        try {
-            raceComboBox.getItems().addAll(loadRacesDataFromFile());
-            raceComboBox.valueProperty().addListener((ov, t, t1) -> this.mainController.updateCharacteristicsFromRace(t1));
-            careerComboBox.getItems().addAll(loadProfessionsDataFromFile());
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-
+        raceComboBox.getItems().addAll(loadRacesDataFromFile());
+        raceComboBox.valueProperty().addListener((ov, t, t1) -> this.mainController.updateCharacteristicsFromRace(t1));
+        careerComboBox.getItems().addAll(loadProfessionsDataFromFile());
     }
 }
